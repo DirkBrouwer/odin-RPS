@@ -4,13 +4,14 @@ PSEUDOCODE
 Step 1: Write the logic to get the computer choice
 
 1. Generate a random number
+
 2. Limit random number to three different values: 1, 2 or 3
-3. Return either "rock", "paper" or "scissors" depending on the random number
+
+3. Return either "rock", "paper" or "scissors", depending on the random number
 */
 
 function getComputerChoice() {
   const randomNumber = Math.ceil(Math.random() * 3);
-  console.log(`The random number is ${randomNumber}`);
 
   switch (randomNumber) {
     case 1:
@@ -23,3 +24,35 @@ function getComputerChoice() {
 }
 
 console.log(`The computer chose ${getComputerChoice()}`);
+
+/*
+PSEUDOCODE
+
+Step 2: Write the logic to get the human choice
+
+1. Prompt the user to enter one of three options: "rock", "paper" or "scissors"
+
+2. If user input is not a valid choice, inform user about invalid input and prompt user again until valid choice is entered.
+
+3. Return human choice
+*/
+
+function getHumanChoice() {
+  let inputValid = false;
+
+  do {
+    let humanChoice = prompt("Please choose between rock, paper or scissors");
+    if (humanChoice !== null) humanChoice = humanChoice.toLowerCase();
+
+    if (
+      humanChoice !== "rock" &&
+      humanChoice !== "paper" &&
+      humanChoice !== "scissors"
+    )
+      continue;
+
+    return humanChoice;
+  } while (!inputValid);
+}
+
+console.log(`The human chose ${getHumanChoice()}`);
