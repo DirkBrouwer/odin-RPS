@@ -56,3 +56,15 @@ function getHumanChoice() {
 }
 
 console.log(`The human chose ${getHumanChoice()}`);
+
+/*
+PSEUDOCODE
+
+Step 3: Declare the players score variables
+
+1. Set computer score to zero
+2. Set human score to zero
+*/
+
+let computerScore = 0;
+let humanScore = 0;
