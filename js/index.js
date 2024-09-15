@@ -41,7 +41,7 @@ function getHumanChoice() {
   let inputValid = false;
 
   do {
-    let humanChoice = prompt("Please choose between rock, paper or scissors");
+    let humanChoice = prompt("Please pick either rock, paper or scissors");
     if (humanChoice !== null) humanChoice = humanChoice.toLowerCase();
 
     if (
