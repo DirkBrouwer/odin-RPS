@@ -23,8 +23,6 @@ function getComputerChoice() {
   }
 }
 
-console.log(`The computer chose ${getComputerChoice()}`);
-
 /*
 PSEUDOCODE
 
@@ -55,8 +53,6 @@ function getHumanChoice() {
   } while (!inputValid);
 }
 
-console.log(`The human chose ${getHumanChoice()}`);
-
 /*
 PSEUDOCODE
 
@@ -68,3 +64,41 @@ Step 3: Declare the players score variables
 
 let computerScore = 0;
 let humanScore = 0;
+
+/*
+PSEUDOCODE
+
+Step 4: Write the logic to play a single round
+
+1. Compare computer choice with human choice
+2. If one beats the other, declare the round winner. If computer choice is equal to human choice, show message saying it's a draw
+3. If computer wins, add one to computer score. If human wins, add one to human score. If it's a draw, don't add anything to either scores
+*/
+
+function playRound(computerChoice, humanChoice) {
+  const loseMessage = `You lose! ${computerChoice} beats ${humanChoice}`;
+  const winMessage = `You win! ${humanChoice} beats ${computerChoice}`;
+
+  if (computerChoice === "scissors" && humanChoice === "paper") {
+    console.log(loseMessage);
+    computerScore++;
+  } else if (computerChoice === "paper" && humanChoice === "scissors") {
+    console.log(winMessage);
+    humanScore++;
+  } else if (computerChoice < humanChoice) {
+    console.log(loseMessage);
+    computerScore++;
+  } else if (computerChoice > humanChoice) {
+    console.log(winMessage);
+    humanScore++;
+  } else {
+    console.log(`It's a draw! You both chose ${humanChoice}`);
+  }
+  console.log(`Computer score: ${computerScore}`);
+  console.log(`Human score: ${humanScore}`);
+}
+
+const computerSelection = getComputerChoice();
+const humanSelection = getHumanChoice();
+
+playRound(computerSelection, humanSelection);
