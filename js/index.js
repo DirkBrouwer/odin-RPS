@@ -56,16 +56,57 @@ function getHumanChoice() {
 /*
 PSEUDOCODE
 
+Step 5: Write the logic to play the entire game
+
+1. Play 5 rounds of rock, paper, scissors
+2. After each round, add one to either the computer score or the human score, depending on the round winner.
+3. After all rounds have been played, compare both scores to each other. Declare the one with the highest score winner of the entire game
+*/
+
+function playGame() {
+  /*
+PSEUDOCODE
+
 Step 3: Declare the players score variables
 
 1. Set computer score to zero
 2. Set human score to zero
 */
+  let computerScore = 0;
+  let humanScore = 0;
 
-let computerScore = 0;
-let humanScore = 0;
+  function updateScore(roundWinner, currentRound) {
+    switch (roundWinner) {
+      case "computer":
+        computerScore++;
+        break;
+      case "human":
+        humanScore++;
+        break;
+      default:
+        break;
+    }
+    if (currentRound < 5)
+      console.log(
+        `Score after round ${currentRound}: \n Computer: ${computerScore} \n Human: ${humanScore}`
+      );
+  }
 
-/*
+  function showFinalResult() {
+    console.log(
+      `***FINAL SCORE*** \n Computer: ${computerScore} \n Human: ${humanScore}`
+    );
+
+    if (humanScore > computerScore) {
+      console.log("YOU WIN!");
+    } else if (humanScore < computerScore) {
+      console.log(`YOU LOSE!`);
+    } else {
+      console.log("It's a draw!");
+    }
+  }
+
+  /*
 PSEUDOCODE
 
 Step 4: Write the logic to play a single round
@@ -75,30 +116,41 @@ Step 4: Write the logic to play a single round
 3. If computer wins, add one to computer score. If human wins, add one to human score. If it's a draw, don't add anything to either scores
 */
 
-function playRound(computerChoice, humanChoice) {
-  const loseMessage = `You lose! ${computerChoice} beats ${humanChoice}`;
-  const winMessage = `You win! ${humanChoice} beats ${computerChoice}`;
+  function playRound(computerChoice, humanChoice) {
+    const capitalizedComputerChoice =
+      computerChoice[0].toUpperCase() + computerChoice.substring(1);
+    const capitalizedHumanChoice =
+      humanChoice[0].toUpperCase() + humanChoice.substring(1);
 
-  if (computerChoice === "scissors" && humanChoice === "paper") {
-    console.log(loseMessage);
-    computerScore++;
-  } else if (computerChoice === "paper" && humanChoice === "scissors") {
-    console.log(winMessage);
-    humanScore++;
-  } else if (computerChoice < humanChoice) {
-    console.log(loseMessage);
-    computerScore++;
-  } else if (computerChoice > humanChoice) {
-    console.log(winMessage);
-    humanScore++;
-  } else {
-    console.log(`It's a draw! You both chose ${humanChoice}`);
+    const loseMessage = `You lose! ${capitalizedComputerChoice} beats ${capitalizedHumanChoice}`;
+    const winMessage = `You win! ${capitalizedHumanChoice} beats ${capitalizedComputerChoice}`;
+
+    let roundWinner;
+
+    if (computerChoice === "scissors" && humanChoice === "paper") {
+      console.log(loseMessage);
+      roundWinner = "computer";
+    } else if (computerChoice === "paper" && humanChoice === "scissors") {
+      console.log(winMessage);
+      roundWinner = "human";
+    } else if (computerChoice < humanChoice) {
+      console.log(loseMessage);
+      roundWinner = "computer";
+    } else if (computerChoice > humanChoice) {
+      console.log(winMessage);
+      roundWinner = "human";
+    } else {
+      console.log(`It's a draw! You both chose ${capitalizedHumanChoice}`);
+    }
+    return roundWinner;
   }
-  console.log(`Computer score: ${computerScore}`);
-  console.log(`Human score: ${humanScore}`);
+
+  for (let currentRound = 1; currentRound < 6; currentRound++) {
+    const roundWinner = playRound(getComputerChoice(), getHumanChoice());
+    updateScore(roundWinner, currentRound);
+  }
+
+  showFinalResult();
 }
 
-const computerSelection = getComputerChoice();
-const humanSelection = getHumanChoice();
-
-playRound(computerSelection, humanSelection);
+playGame();
