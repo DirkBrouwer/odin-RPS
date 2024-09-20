@@ -69,11 +69,11 @@ PSEUDOCODE
 
 Step 3: Declare the players score variables
 
-1. Set computer score to zero
-2. Set human score to zero
+1. Set human score to zero
+2. Set computer score to zero
 */
-  let computerScore = 0;
   let humanScore = 0;
+  let computerScore = 0;
 
   function updateScore(roundWinner, currentRound) {
     switch (roundWinner) {
@@ -116,37 +116,36 @@ Step 4: Write the logic to play a single round
 3. If computer wins, add one to computer score. If human wins, add one to human score. If it's a draw, don't add anything to either scores
 */
 
-  function playRound(computerChoice, humanChoice) {
-    const capitalizedComputerChoice =
-      computerChoice[0].toUpperCase() + computerChoice.substring(1);
+  function playRound(humanChoice, computerChoice) {
     const capitalizedHumanChoice =
       humanChoice[0].toUpperCase() + humanChoice.substring(1);
+    const capitalizedComputerChoice =
+      computerChoice[0].toUpperCase() + computerChoice.substring(1);
 
-    const loseMessage = `You lose! ${capitalizedComputerChoice} beats ${capitalizedHumanChoice}`;
     const winMessage = `You win! ${capitalizedHumanChoice} beats ${capitalizedComputerChoice}`;
+    const loseMessage = `You lose! ${capitalizedComputerChoice} beats ${capitalizedHumanChoice}`;
 
     let roundWinner;
 
-    if (computerChoice === "scissors" && humanChoice === "paper") {
-      console.log(loseMessage);
-      roundWinner = "computer";
-    } else if (computerChoice === "paper" && humanChoice === "scissors") {
-      console.log(winMessage);
-      roundWinner = "human";
-    } else if (computerChoice < humanChoice) {
-      console.log(loseMessage);
-      roundWinner = "computer";
-    } else if (computerChoice > humanChoice) {
+    if (humanChoice === computerChoice) {
+      console.log(`It's a draw! You both chose ${capitalizedHumanChoice}`);
+    } else if (
+      (humanChoice === "rock" && computerChoice === "scissors") ||
+      (humanChoice === "paper" && computerChoice === "rock") ||
+      (humanChoice === "scissors" && computerChoice === "paper")
+    ) {
       console.log(winMessage);
       roundWinner = "human";
     } else {
-      console.log(`It's a draw! You both chose ${capitalizedHumanChoice}`);
+      console.log(loseMessage);
+      roundWinner = "computer";
     }
+
     return roundWinner;
   }
 
   for (let currentRound = 1; currentRound < 6; currentRound++) {
-    const roundWinner = playRound(getComputerChoice(), getHumanChoice());
+    const roundWinner = playRound(getHumanChoice(), getComputerChoice());
     updateScore(roundWinner, currentRound);
   }
 
